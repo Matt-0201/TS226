@@ -18,7 +18,6 @@ function c = cc_encode(u, trellis)
     for i=1:m
         [nextState, nextBit] = min([trellis.nextStates(state+1, 1), trellis.nextStates(state+1, 2)]);
         out = trellis.outputs(state+1, nextBit);
-        disp(out);
         outbit = int2bit(out, ns);
         c = [c, outbit'];
         state = nextState;

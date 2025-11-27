@@ -1,3 +1,4 @@
+
 clear
 clc
 
@@ -12,4 +13,5 @@ c = cc_encode(u, trellis);
 
 % Décodeur
 y = [-1 -1 -1 -1 1 1 -1 1 1 1 -1 1 -1 -1];
+
 u_ = viterbi_decode(y, trellis);

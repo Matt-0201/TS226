@@ -1,8 +1,8 @@
 function c = cc_encode(u, trellis)
     
     K = length(u);
-    m = log2(trellis.numStates);
-    ns = log2(trellis.numOutputSymbols);
+    m = log2(trellis.numStates); %Mémoire du code (Nb de bits dans le registe de la mémoire )
+    ns = log2(trellis.numOutputSymbols); %nombre de bits de sortie par input bit
     
     c = [];
     state = 0;

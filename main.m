@@ -4,11 +4,20 @@ clc
 %% Parametres
 % -------------------------------------------------------------------------
 K = 1024; % Nombre de bits de message
-N = 1024; % Nombre de bits codés par trame (codée)
+N = 2048; % Nombre de bits codés par trame (codée) %Nb de bits en sortie de l'encodeur ici R = K/N = 1/2
 
 R = K/N; % Rendement de la communication
 
 M = 2;   % Modulation BPSK <=> 2 symboles
+
+%Mise en place du code convolutif
+%Code convolutif (2,3)
+m = 1;%Mémoire
+contrainte = m + 1; %Contrainte
+polynome = [2, 3]; %Polynôme
+
+
+trellis = poly2trellis(contrainte, polynome);%Definition trelli code convolutif
 
 EbN0dB_min  = 0; % Minimum de EbN0
 EbN0dB_max  = 10; % Maximum de EbN0
@@ -69,7 +78,8 @@ for iSNR = 1:length(EbN0dB)
         %% Emetteur
         tx_tic  = tic;                 % Mesure du débit d'encodage
         u       = randi([0,1],K,1);    % Génération du message aléatoire
-        c       = u;                   % Encodage
+        %c       = u;                   % Encodage
+        c = cc_encode(u, trellis);     %Encodage code convolutif
         x       = 1-2*c;               % Modulation QPSK
         T_tx    = T_tx+toc(tx_tic);    % Mesure du débit d'encodage
         debitTX = pqtNbr*K/8/T_tx/1e6;
@@ -81,8 +91,12 @@ for iSNR = 1:length(EbN0dB)
         %% Recepteur
         rx_tic = tic;                  % Mesure du débit de décodage
         Lc      = 2*y/sigmaz2(iSNR);   % Démodulation (retourne des LLRs)
-        u_rec   = double(Lc(1:K) < 0); % Message reçu
+        %u_rec   = double(Lc(1:K) < 0); % Message reçu
+        u_rec = viterbi_decode(y,trellis); %L'utilisation de LC à la place de y serait plus optimale
         
+        %Supression de la fermeture
+        %c = c(1:K);
+
         BE      = sum(u(:) ~= u_rec(:)); % Nombre de bits faux sur cette trame
         bitErr  = bitErr + BE;
         pqtErr  = pqtErr + double(BE>0);

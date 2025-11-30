@@ -10,14 +10,46 @@ R = K/N; % Rendement de la communication
 
 M = 2;   % Modulation BPSK <=> 2 symboles
 
-%Mise en place du code convolutif
+%% Mise en place du code convolutif
+
+%% Codes convolutifs sans recusivité
 %Code convolutif (2,3)
-m = 1;%Mémoire
-contrainte = m + 1; %Contrainte
-polynome = [2, 3]; %Polynôme
+% m = 1;%Mémoire
+% contrainte = m + 1; %Contrainte
+% polynome = [2, 3]; %Polynôme
+
+%Code convutif (5,7)
+% m = 2;
+% contrainte = m + 1;
+% polynome = [5, 7];
+
+%Code convutif (13,15)
+% m = 3;
+% contrainte = m + 1;
+% polynome = [13, 15];
+
+%Code convutif (133,171)
+% m = 6;
+% contrainte = m + 1;
+% polynome = [133, 177];
+
+%trellis = poly2trellis(contrainte, polynome);%Definition trelli code convolutif
 
 
-trellis = poly2trellis(contrainte, polynome);%Definition trelli code convolutif
+%Code convutif (1,5/7)
+% m = 2;
+% contrainte = m + 1;
+% polynome = [5, 7];
+% feedback = 7;
+
+%Code convutif (1,13/17)
+m = 3;
+contrainte = m + 1;
+polynome = [15, 17];
+feedback = 15;
+
+%% Codes convolutifs recusifs
+trellis = poly2trellis(contrainte, polynome, feedback);%Definition trelli code convolutif
 
 EbN0dB_min  = 0; % Minimum de EbN0
 EbN0dB_max  = 10; % Maximum de EbN0

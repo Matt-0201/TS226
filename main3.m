@@ -3,14 +3,14 @@ clear
 clc
 
 %Paramètres
-m = 1;
+m = 2;
 contrainte = m + 1;
-%u = [1 1 0 1 0];
+u = [1 1 0 1 0];
 
-K = 10; %Longueur du vecteur d'information
-u = randi([0,1],K,1);
-u = u'; %Pas forcement utile mais coehérent pour avoir les memes dimensions entree et en sortie
-trellis = poly2trellis(contrainte, [2, 3]);
+% K = 10; %Longueur du vecteur d'information
+% u = randi([0,1],K,1);
+% u = u'; %Pas forcement utile mais coehérent pour avoir les memes dimensions entree et en sortie
+trellis = poly2trellis(contrainte, [5, 7]);
 
 
 % Codeur

@@ -8,7 +8,7 @@ N = 2048; % Nombre de bits codés par trame (codée) %Nb de bits en sortie de l'en
 
 R = K/N; % Rendement de la communication
 
-M = 2;   % Modulation BPSK <=> 2 symboles
+M = 2;   % Modulation BPSK <=> 2 symboles   
 
 %% Mise en place du code convolutif
 
